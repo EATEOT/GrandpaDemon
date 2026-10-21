@@ -1,13 +1,8 @@
 cmake_minimum_required(VERSION 3.24)
 
-# Принудительно заставляем новые сервера 2026 года дружить со старым кодом CPM
-cmake_policy(SET CMP0048 NEW)
-if(POLICY CMP0169)
-    cmake_policy(SET CMP0169 OLD)
-endif()
-
 project(GrandpaDemon)
 
+# Включаем современную интеграцию с Geode без использования сторонних менеджеров закачек
 if (NOT DEFINED ENV{GEODE_SDK})
     find_package(Geode REQUIRED)
 else()
