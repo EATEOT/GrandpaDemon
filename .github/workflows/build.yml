@@ -14,10 +14,9 @@ jobs:
         config:
           - name: Windows
             os: windows-latest
-            target: ""
           - name: Android
             os: ubuntu-latest
-            target: "Android"
+            target: Android
 
     name: ${{ matrix.config.name }}
     runs-on: ${{ matrix.config.os }}
@@ -25,20 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Geode CLI
-        uses: geode-sdk/setup-geode@main
-
       - name: Build Mod
-        run: |
-          if [ "${{ matrix.config.name }}" = "Windows" ]; then
-            geode build . --release
-          else
-            geode build . --release --target Android
-          fi
-        shell: bash
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
+        uses: geode-sdk/build-geode-mod@main
         with:
-          name: GrandpaDemon-${{ matrix.config.name }}
-          path: "build/**/*.geode"
+          target: ${{ matrix.config.target }}
