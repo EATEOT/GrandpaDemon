@@ -30,4 +30,3 @@ jobs:
           bindings: geode-sdk/bindings
           target: ${{ matrix.config.target }}
           combine: true
-          cache: false
