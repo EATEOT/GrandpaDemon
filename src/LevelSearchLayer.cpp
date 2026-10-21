@@ -1,22 +1,18 @@
-#include <Geode/Bindings.hpp>
-#include <Geode/modify/GJSearchObject.hpp>
+#include <Geode/Geode.hpp>
 #include <Geode/modify/LevelSearchLayer.hpp>
 #include "ListManager.h"
 
 using namespace geode::prelude;
 
-// class $modify(GRDGJSearchObject, GJSearchObject) {
+class $modify(LevelSearchLayer) {
+    bool init(int p0) {
+        if (!LevelSearchLayer::init(p0)) return false;
 
-// };
+        // Фикс логики поиска для новой версии Geode 3.4+
+        if (ListManager::isSupremeSearching) {
+            ListManager::isSupremeSearching = false;
+        }
 
-// class $modify(GRDLevelSearchLayer, LevelSearchLayer) {
-//     bool init(int p0) {
-//         LevelSearchLayer::init(p0);
-
-//         // auto demonSprite = this->m_lastDifficultySprite;
-//         // auto testspr = CCSprite::createWithSpriteFrameName("GrD_demon4_text.png"_spr);
-//         // demonSprite->setTexture(testspr->getTexture());
-//         // demonSprite->setTextureRect(testspr->getTextureRect());
-//         // return true;
-//     }
-// };
+        return true;
+    }
+};
