@@ -2,7 +2,13 @@ cmake_minimum_required(VERSION 3.24)
 
 project(GrandpaDemon)
 
-find_package(Geode REQUIRED)
+if (NOT DEFINED ENV{GEODE_SDK})
+    # Если сервер не передал путь, используем стандартную подгрузку через Geode
+    find_package(Geode REQUIRED)
+else()
+    # Прямое подключение SDK без капризных поисков файлов конфигурации
+    add_subdirectory($ENV{GEODE_SDK} ${CMAKE_CURRENT_BINARY_DIR}/geode)
+endif()
 
 add_geode_mod(
     itzkiba.grandpa_demon
