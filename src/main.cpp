@@ -1,13 +1,12 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/MenuLayer.hpp>
-#include <Geode/modify/LevelInfoLayer.hpp>
 #include <Geode/utils/web.hpp>
 #include "ListManager.h"
 #include <string>
+
 using namespace geode::prelude;
 
 class $modify(MenuLayer) {
-
 	struct Fields {
         EventListener<web::WebTask> m_listener;
 	};
@@ -21,7 +20,6 @@ class $modify(MenuLayer) {
 
 		std::string currentSource = Mod::get()->getSettingValue<std::string>("demon-list-source");
 
-		// Если выбран Global список, нам не нужно делать интернет-запросы, парсим встроенные ID сразу
 		if (currentSource == "global") {
 			ListManager::parseRequestString("");
 			ListManager::firstTimeOpen = true;
@@ -35,23 +33,20 @@ class $modify(MenuLayer) {
 				if (res->code() != 200 || str == "Failed." || str == "-1") {
 					ListManager::firstTimeOpen = true;
 					ListManager::filterType = -2;
-					
 					std::string listName = (currentSource == "pointercrate") ? "Pointercrate" : "AREDL";
-					std::string errorStr = "\n\n<cr>Could not load data from " + listName + ".</c>\nThe API could be down, but chances are, your internet just sucks.\n\n<cg>Restart your game to try again.</c>\n\n<cb>-Grandpa Demon</c>";
-					FLAlertLayer::create("What the??", str + errorStr, "OK")->show();
+					std::string errorStr = "\n\n<cr>Could not load data from " + listName + ".</c>\n\n<cb>-Grandpa Demon</c>";
+					FLAlertLayer::create("Error", errorStr, "OK")->show();
 					return;
 				}
-
 				ListManager::parseRequestString(str);
 		 		ListManager::firstTimeOpen = true;
 		 		ListManager::filterType = -1;
 			}
         });
 
-		// Динамически выбираем ссылку в зависимости от настройки в меню мода
-		std::string targetUrl = "https://api.aredl.net/api/aredl/list"; // По умолчанию AREDL
+		std::string targetUrl = "https://aredl.net";
 		if (currentSource == "pointercrate") {
-			targetUrl = "https://pointercrate.com"; // Ссылка на Pointercrate Demonlist
+			targetUrl = "https://pointercrate.com";
 		}
 
 		auto req = web::WebRequest();
