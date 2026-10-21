@@ -1,3 +1,6 @@
+# v1.3.7
+* Made compatible with 2.206
+* Added Selecting a Demon List (Pointercreate, AREDL and Global)
 # v1.2.0
 * Made compatible with 2.206
 * Fixed a crash that occured when trying to search for Grandpa Demons with Grandpa Demon disabled
