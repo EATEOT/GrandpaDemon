@@ -12,6 +12,7 @@ if(DEFINED ENV{GEODE_SDK})
     list(APPEND CMAKE_MODULE_PATH "$ENV{GEODE_SDK}/cmake")
 else()
     find_package(Geode REQUIRED)
+    list(APPEND CMAKE_MODULE_PATH "${GEODE_SDK}/cmake")
 endif()
 
 include(GeodeMod)
