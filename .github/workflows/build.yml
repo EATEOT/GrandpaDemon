@@ -6,6 +6,10 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: "true"
+
 jobs:
   build:
     strategy:
@@ -14,9 +18,10 @@ jobs:
         config:
           - name: Windows
             os: windows-latest
+            target: ""
           - name: Android
-            os: ubuntu-latest
-            target: Android
+            os: ubuntu-24.04
+            target: "Android"
 
     name: ${{ matrix.config.name }}
     runs-on: ${{ matrix.config.os }}
@@ -24,7 +29,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build Mod
+      - name: Build the mod
         uses: geode-sdk/build-geode-mod@main
         with:
+          combine: true
           target: ${{ matrix.config.target }}
