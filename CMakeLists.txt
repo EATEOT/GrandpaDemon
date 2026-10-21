@@ -1,12 +1,16 @@
 cmake_minimum_required(VERSION 3.24)
 
+# Принудительно заставляем новые сервера 2026 года дружить со старым кодом CPM
+cmake_policy(SET CMP0048 NEW)
+if(POLICY CMP0169)
+    cmake_policy(SET CMP0169 OLD)
+endif()
+
 project(GrandpaDemon)
 
 if (NOT DEFINED ENV{GEODE_SDK})
-    # Если сервер не передал путь, используем стандартную подгрузку через Geode
     find_package(Geode REQUIRED)
 else()
-    # Прямое подключение SDK без капризных поисков файлов конфигурации
     add_subdirectory($ENV{GEODE_SDK} ${CMAKE_CURRENT_BINARY_DIR}/geode)
 endif()
 
