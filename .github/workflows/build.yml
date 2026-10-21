@@ -15,7 +15,7 @@ jobs:
           - name: Windows
             os: windows-latest
           - name: Android
-            os: ubuntu-latest
+            os: ubuntu-24.04
             target: Android
 
     name: ${{ matrix.config.name }}
@@ -29,3 +29,5 @@ jobs:
         with:
           bindings: geode-sdk/bindings
           target: ${{ matrix.config.target }}
+          combine: true
+          cache: false
