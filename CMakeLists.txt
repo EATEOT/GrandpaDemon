@@ -1,8 +1,17 @@
 cmake_minimum_required(VERSION 3.24)
 
+cmake_policy(SET CMP0048 NEW)
+if(POLICY CMP0169)
+    cmake_policy(SET CMP0169 OLD)
+endif()
+
 project(GrandpaDemon)
 
-find_package(Geode REQUIRED)
+if(DEFINED ENV{GEODE_SDK})
+    add_subdirectory($ENV{GEODE_SDK} ${CMAKE_CURRENT_BINARY_DIR}/geode)
+else()
+    find_package(Geode REQUIRED)
+endif()
 
 add_geode_mod(
     itzkiba.grandpa_demon
