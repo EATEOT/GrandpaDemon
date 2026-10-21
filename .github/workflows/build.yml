@@ -26,23 +26,12 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Setup Geode CLI
-        run: |
-          if [ "${{ matrix.config.name }}" = "Windows" ]; then
-            curl -LO https://github.com
-            tar -xf geode-cli-win.zip
-            echo "$PWD" >> $GITHUB_PATH
-          else
-            curl -LO https://github.com
-            tar -xf geode-cli-linux.zip
-            chmod +x geode
-            sudo mv geode /usr/local/bin/
-          fi
-        shell: bash
+        uses: geode-sdk/setup-geode@main
 
-      - name: Build Mod via Geode CLI
+      - name: Build Mod
         run: |
           if [ "${{ matrix.config.name }}" = "Windows" ]; then
-            ./geode.exe build . --release
+            geode build . --release
           else
             geode build . --release --target Android
           fi
