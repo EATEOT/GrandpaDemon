@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.24)
 
 project(GrandpaDemon)
 
+find_package(Geode REQUIRED)
+
 add_geode_mod(
     itzkiba.grandpa_demon
     VERSION v1.3.7
