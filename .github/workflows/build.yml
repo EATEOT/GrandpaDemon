@@ -16,7 +16,7 @@ jobs:
             os: windows-latest
             target: ""
           - name: Android
-            os: ubuntu-latest
+            os: ubuntu-24.04
             target: "Android"
 
     name: ${{ matrix.config.name }}
@@ -24,6 +24,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Create dummy cache directory
+        run: |
+          mkdir -p .ccache
+          mkdir -p build
 
       - name: Build the mod
         uses: geode-sdk/build-geode-mod@main
