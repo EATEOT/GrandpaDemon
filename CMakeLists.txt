@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
 
-# Заставляем компилятор проглотить старый CPM без ворчания
 cmake_policy(SET CMP0048 NEW)
 if(POLICY CMP0169)
     cmake_policy(SET CMP0169 OLD)
@@ -8,7 +7,7 @@ endif()
 
 project(GrandpaDemon)
 
-# Официальное и самое стабильное подключение Geode SDK
+include(FetchContent)
 find_package(Geode REQUIRED)
 
 add_geode_mod(
