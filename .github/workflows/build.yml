@@ -1,4 +1,4 @@
-name: Build Geode Mod
+name: Build Geode Mod Manually
 
 on:
   push:
@@ -6,31 +6,51 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
-  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: "true"
-
 jobs:
   build:
-    strategy:
-      fail-fast: false
-      matrix:
-        config:
-          - name: Windows
-            os: windows-latest
-            target: ""
-          - name: Android
-            os: ubuntu-24.04
-            target: "Android"
-
-    name: ${{ matrix.config.name }}
-    runs-on: ${{ matrix.config.os }}
+    name: Android Build
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build the mod
-        uses: geode-sdk/build-geode-mod@main
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
         with:
-          combine: true
-          target: ${{ matrix.config.target }}
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install Android NDK
+        uses: nndess/setup-android-ndk@v1
+        with:
+          ndk-version: r26b
+
+      - name: Download Geode CLI
+        run: |
+          wget https://github.com
+          unzip geode-cli-linux.zip
+          chmod +x geode
+          sudo mv geode /usr/local/bin/geode
+
+      - name: Setup Geode Profile
+        run: |
+          geode profile add --name default ""
+          geode profile select default
+
+      - name: Configure CMake
+        run: |
+          cmake -B build \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DGEODE_TARGET_PLATFORM=Android \
+            -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_LATEST_HOME/build/cmake/android.toolchain.cmake \
+            -DANDROID_ABI=arm64-v8a \
+            -DANDROID_PLATFORM=android-23
+
+      - name: Build Mod
+        run: cmake --build build --config Release
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GrandpaDemon-Android
+          path: build/*.geode
