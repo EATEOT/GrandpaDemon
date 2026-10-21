@@ -1,13 +1,7 @@
 cmake_minimum_required(VERSION 3.24)
 
-cmake_policy(SET CMP0048 NEW)
-if(POLICY CMP0169)
-    cmake_policy(SET CMP0169 OLD)
-endif()
-
 project(GrandpaDemon)
 
-include(FetchContent)
 find_package(Geode REQUIRED)
 
 add_geode_mod(
