@@ -18,8 +18,13 @@ The humble Extreme Demon is the highest difficulty in all of Geometry Dash. **Ho
 ![Demons](resources/readme/demons.png)
 
 ## New Demon Difficulties
-The difficulties of extreme demons are chosen based on their positions on the [AREDL](https://aredl.pages.dev/#/).
+The difficulties of extreme demons are dynamically chosen based on their positions on your selected list:
 
+* 🌐 [All Rated Extremes Demon List (AREDL)](https://aredl.net)
+* 🏆 [Pointercrate Demonlist](https://pointercrate.com)
+* 🌍 [Global Demon List (Custom Defaults)](https://pointercrate.comapi/v1/demons/listed/)
+
+Depending on the level's placement in the active list, it receives a new rank:
 * Top 500 Demons - *Supreme Demon*
 * Top 250 Demons - *Ultimate Demon*
 * Top 150 Demons - *Legendary Demon*
@@ -28,6 +33,7 @@ The difficulties of extreme demons are chosen based on their positions on the [A
 * Top 1 Demon - *Grandpa Demon*
 
 ***Note:** Grandpa Demon is optional and can be disabled in the mod's settings.*
+
 
 ## Credits
 * **tcoffa** for creating the original Grandpa Demon sprite
