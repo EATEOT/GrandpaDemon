@@ -52,4 +52,3 @@ jobs:
         with:
           name: Build Output
           path: ${{ steps.build.outputs.build-output }}
-.
