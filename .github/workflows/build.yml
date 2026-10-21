@@ -14,9 +14,10 @@ jobs:
         config:
           - name: Windows
             os: windows-latest
+            target: ""
           - name: Android
             os: ubuntu-latest
-            target: Android
+            target: "Android"
 
     name: ${{ matrix.config.name }}
     runs-on: ${{ matrix.config.os }}
@@ -24,8 +25,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build Mod
-        uses: geode-sdk/build-geode-mod@main
+      - name: Setup Geode CLI
+        run: |
+          if [ "${{ matrix.config.name }}" = "Windows" ]; then
+            curl -LO https://github.com
+            tar -xf geode-cli-win.zip
+            echo "$PWD" >> $GITHUB_PATH
+          else
+            curl -LO https://github.com
+            tar -xf geode-cli-linux.zip
+            chmod +x geode
+            sudo mv geode /usr/local/bin/
+          fi
+        shell: bash
+
+      - name: Build Mod via Geode CLI
+        run: |
+          if [ "${{ matrix.config.name }}" = "Windows" ]; then
+            ./geode.exe build . --release
+          else
+            geode build . --release --target Android
+          fi
+        shell: bash
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
         with:
-          target: ${{ matrix.config.target }}
-          configure-args: "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+          name: GrandpaDemon-${{ matrix.config.name }}
+          path: "build/**/*.geode"
