@@ -1,5 +1,5 @@
 # v1.3.7
-* Made compatible with 2.206
+* Made compatible with 2.2081 (2.209 soon)
 * Added Selecting a Demon List (Pointercreate, AREDL and Global)
 # v1.2.0
 * Made compatible with 2.206
