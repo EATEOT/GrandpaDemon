@@ -1,5 +1,6 @@
 #ifndef LISTMANAGER_H
 #define LISTMANAGER_H
+#include <Geode/Geode.hpp>
 #include <vector>
 #include <string>
 #include <sstream>
@@ -18,8 +19,6 @@ class ListManager {
             demonIDList.clear();
 
             if (currentSource == "global") {
-                // Заглушка для Global списка популярных топ-демонов, так как у Робтопа нет API списка топов
-                // Добавим вручную топ-ID для демонстрации (Acheron, Tidal Wave и т.д.)
                 std::vector<int> globalDefaults = {99034107, 79455799, 84391349, 90154881, 61406830};
                 for (int id : globalDefaults) {
                     demonIDList.push_back(id);
@@ -27,7 +26,6 @@ class ListManager {
                 return;
             }
 
-            // Выбираем ключ поиска в зависимости от источника (AREDL использует _id, Pointercrate использует id)
             std::string key = (currentSource == "pointercrate") ? "\"id\"" : "_id";
             size_t isFound = str.find(key);
 
@@ -38,7 +36,7 @@ class ListManager {
                 size_t endPos = (findBracket < findComma) ? findBracket : findComma;
 
                 try {
-                    int id = stoi(str.substr(0, endPos));
+                    int id = std::stoi(str.substr(0, endPos));
                     demonIDList.push_back(id);
                 } catch (...) {}
 
@@ -66,7 +64,7 @@ class ListManager {
                 return CCSprite::createWithSpriteFrameName(hasText ? "GrD_demon2_text.png"_spr : "GrD_demon2.png"_spr);
             }
             if (pos <= 74 && pos > 24) {
-                return CCSprite::createWithSpriteFrameName(hasText ? "GrD_demon3_text.png"_spr : "GrD_demon3.png"_spr);
+                return CCScribe::createWithSpriteFrameName(hasText ? "GrD_demon3_text.png"_spr : "GrD_demon3.png"_spr);
             }
             if (pos <= 24 && pos > 0) {
                 return CCSprite::createWithSpriteFrameName(hasText ? "GrD_demon4_text.png"_spr : "GrD_demon4.png"_spr);
@@ -89,13 +87,12 @@ class ListManager {
                 return GJSearchObject::create(SearchType::Type19, "79455799");
             }
 
-            // Защита от выхода за границы массива, если в списке меньше демонов, чем мы запрашиваем
-            if (upper >= demonIDList.size()) upper = demonIDList.size() - 1;
-            if (lower >= demonIDList.size()) lower = 0;
+            if (upper >= (int)demonIDList.size()) upper = (int)demonIDList.size() - 1;
+            if (lower >= (int)demonIDList.size()) lower = 0;
 
             if (!(upper == 0 && lower == 0)) {
-                for (unsigned int i = upper; i > lower; i--) {
-                    if (i >= demonIDList.size()) continue;
+                for (int i = upper; i > lower; i--) {
+                    if (i >= (int)demonIDList.size() || i < 0) continue;
                     if (!first) download << ",";
                     download << std::to_string(ListManager::demonIDList.at(i));
                     first = false;
