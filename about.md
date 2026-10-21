@@ -2,11 +2,11 @@
 <cj>A mod created by ItzKiba.</c>
 
 ## Overview
-The humble Extreme Demon is the highest difficulty in all of Geometry Dash. **<cr>However, there is no possible way that Acheron and ACU should be considered the same difficulty.</c>** Think that there should be more demon difficulties above Extreme? Look no further than the **<cl>Grandpa Demon mod!</c>**
+The humble Extreme Demon is the highest difficulty in all of Geometry Dash. **<cr>However, there is no possible way that Grief and Rauchkammer should be considered the same difficulty.</c>** Think that there should be more demon difficulties above Extreme? Look no further than the **<cl>Grandpa Demon mod!</c>**
 
 ## Features
 * *<cg>Up to 6 new demon difficulties</c>* above Extreme Demon!
-* *<cr>All Rated Extremes Demon List</c>* integration!
+* *<cr>All Rated Extremes Demon List, Global Demon List and Pointercreate</c>* integration!
 * *<cy>2.2 List support!</c>*
 * ***<cl>Grandpa Demon!</c>***
 
