@@ -22,7 +22,7 @@ The difficulties of extreme demons are dynamically chosen based on their positio
 
 * 🌐 [All Rated Extremes Demon List (AREDL)](https://aredl.net)
 * 🏆 [Pointercrate Demonlist](https://pointercrate.com)
-* 🌍 [Global Demon List (Custom Defaults)](https://demonlist.org)
+* 🌍 [Global Demon List](https://demonlist.org)
 
 Depending on the level's placement in the active list, it receives a new rank:
 * Top 500 Demons - *Supreme Demon*
